@@ -1,0 +1,17 @@
+services:
+  app:
+    build: ./app
+    container_name: faire-app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+
+  db:
+    build: ./data
+    container_name: faire-db
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data/setup.js:/docker-entrypoint-initdb.d/setup.js:ro
