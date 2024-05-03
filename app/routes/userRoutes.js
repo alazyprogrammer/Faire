@@ -6,4 +6,13 @@ const { validateCreateUser } = require('../validators/userValidator');
 // Route for creating a new user
 router.post('/signup', validateCreateUser, userController.createUser);
 
+// Route to get user by userId
+router.get('/:userId', userController.getUserById);
+
+// Route to update user credentials
+router.put('/:userId', userController.updateUser);
+
+// Route to delete user by userId
+router.delete('/:userId', userController.deleteUser);
+
 module.exports = router;

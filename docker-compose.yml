@@ -15,3 +15,4 @@ services:
       - '27017:27017'
     volumes:
       - ./data/setup.js:/docker-entrypoint-initdb.d/setup.js:ro
+      - ./data:/data/db
