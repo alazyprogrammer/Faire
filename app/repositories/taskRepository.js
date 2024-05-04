@@ -19,6 +19,15 @@ const getTaskById = async (taskId) => {
     }
 };
 
+const getTasksByUserId = async (userId) => {
+    try {
+        const tasks = await Task.find({userId});
+        return tasks;
+    } catch (error) {
+        throw error;
+    }
+};
+
 const updateTaskStatus = async (taskId, status) => {
     try {
       // Find task by ID and update its status
@@ -46,6 +55,7 @@ const deleteTask = async (taskId) => {
 module.exports = {
   createTask,
   getTaskById,
+  getTasksByUserId,
   updateTaskStatus,
   deleteTask,
 };

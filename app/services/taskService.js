@@ -19,6 +19,15 @@ const getTaskById = async (taskId) => {
   }
 };
 
+const getTasksByUserId = async (userId) => {
+  try {
+      const tasks = await taskRepository.getTasksByUserId(userId);
+      return tasks;
+  } catch (error) {
+      throw error;
+  }
+};
+
 const updateTaskStatus = async (taskId, status) => {
   try {
     const updatedTask = await taskRepository.updateTaskStatus(taskId, status, { new: true });
@@ -40,6 +49,7 @@ const deleteTask = async (taskId) => {
 module.exports = {
   createTask,
   getTaskById,
+  getTasksByUserId,
   updateTaskStatus,
   deleteTask,
 };

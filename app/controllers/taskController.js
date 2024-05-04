@@ -1,5 +1,6 @@
 const { TASK_STATUS } = require('../constants');
 const taskService = require('../services/taskService');
+const userService = require('../services/userService');
 
 const createTask = async (req, res) => {
   try {
@@ -47,6 +48,24 @@ const getTaskById = async (req, res) => {
   }
 };
 
+const getTasksByUserId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const user = await userService.getUserById(userId);
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Retrieve all tasks
+    const tasks = await taskService.getTasksByUserId(userId);
+    res.json(tasks);
+  } catch (error) {
+    console.error('Error retrieving tasks:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 const updateTaskStatus = async (req, res) => {
   try {
 
@@ -79,7 +98,7 @@ const deleteTask = async (req, res) => {
 
     // Delete task
     await taskService.deleteTask(taskId);
-    
+
     res.json({ message: 'Task deleted successfully' });
   } catch (error) {
     console.error('Error deleting task:', error);
@@ -87,10 +106,10 @@ const deleteTask = async (req, res) => {
   }
 };
 
-
 module.exports = {
   createTask,
   getTaskById,
+  getTasksByUserId,
   updateTaskStatus,
   deleteTask,
 };
