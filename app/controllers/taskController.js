@@ -12,6 +12,11 @@ const createTask = async (req, res) => {
     const createdAt = new Date();
     const updatedAt = new Date();
 
+    const user = await userService.getUserById(userId);
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
     // Create task object
     const taskData = {
       title,

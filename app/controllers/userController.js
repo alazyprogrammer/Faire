@@ -90,9 +90,9 @@ const updateUser = async (req, res) => {
             updatedAt: new Date(),
         };
 
-        await userService.updateUser(userId, userData);
+        const updatedUser = await userService.updateUser(userId, userData);
 
-        res.json({ message: 'User updated successfully' });
+        res.json({ message: 'User updated successfully', updatedUser });
     } catch (error) {
         console.error('Error updating user:', error);
         res.status(500).json({ error: 'Internal Server Error' });
