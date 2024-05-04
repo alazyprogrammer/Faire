@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
 
         // Create user document in MongoDB
         const userData = {
-            userId: userRecord.uid,
+            uid: userRecord.uid,
             email,
             password: hashedPassword, // Store the hashed password
             createdAt: new Date(),
@@ -66,21 +66,20 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const { userId } = req.params;
         // Extract userId, email, and new password from request body
-        const { email, password } = req.body;
+        const { userId, email, password } = req.body;
 
-        // Validate user in Firebase
-        const existingUser = await admin.auth().getUser(userId);
-        if (!existingUser || existingUser.email !== email) {
-            return res.status(404).json({ error: 'User not found or email mismatch' });
+        // Retrieve firebase based on _id from MongoDB
+        const user = await userService.getUserById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
         }
 
         // Hash the new password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Update user password in Firebase Authentication
-        await admin.auth().updateUser(userId, {
+        await admin.auth().updateUser(user.uid, {
             email,
             password: hashedPassword,
         });
@@ -104,14 +103,14 @@ const deleteUser = async (req, res) => {
     try {
         const { userId } = req.params;
 
-        // Validate user in Firebase
-        const existingUser = await admin.auth().getUser(userId);
-        if (!existingUser) {
+        // Retrieve firebase based on _id from MongoDB
+        const user = await userService.getUserById(userId);
+        if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
         // Delete user from Firebase Authentication
-        await admin.auth().deleteUser(userId);
+        await admin.auth().deleteUser(user.uid);
 
         // Delete user document from MongoDB
         await userService.deleteUser(userId);

@@ -10,7 +10,7 @@ router.post('/signup', validateCreateUser, userController.createUser);
 router.get('/:userId', userController.getUserById);
 
 // Route to update user credentials
-router.put('/:userId', userController.updateUser);
+router.put('/update', userController.updateUser);
 
 // Route to delete user by userId
 router.delete('/:userId', userController.deleteUser);

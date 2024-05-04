@@ -7,9 +7,9 @@ db.createCollection("users", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["userId", "email", "password", "createdAt", "updatedAt"],
+      required: ["uid", "email", "password", "createdAt", "updatedAt"],
       properties: {
-        username: { bsonType: "string" },
+        uid: { bsonType: "string" },
         email: { bsonType: "string" },
         password: { bsonType: "string" },
         createdAt: { bsonType: "date" },
@@ -31,7 +31,7 @@ db.createCollection("tasks", {
         status: { bsonType: "string", enum: ["TODO", "IN_PROGRESS", "COMPLETED"] },
         createdAt: { bsonType: "date" },
         updatedAt: { bsonType: "date" },
-        username: { bsonType: "objectId" }
+        userId: { bsonType: "objectId" }
       }
     }
   }
