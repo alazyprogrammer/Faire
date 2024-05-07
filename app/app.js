@@ -1,5 +1,6 @@
 // app.js
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const taskRoutes = require('./routes/taskRoutes');
@@ -11,6 +12,9 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+
+// Enable CORS for all requests
+app.use(cors());
 
 // Routes
 app.use('/users', userRoutes);

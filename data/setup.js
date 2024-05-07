@@ -31,7 +31,7 @@ db.createCollection("tasks", {
         status: { bsonType: "string", enum: ["TODO", "IN_PROGRESS", "COMPLETED"] },
         createdAt: { bsonType: "date" },
         updatedAt: { bsonType: "date" },
-        userId: { bsonType: "objectId" }
+        userId: { bsonType: "string" }
       }
     }
   }

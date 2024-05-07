@@ -57,7 +57,7 @@ const validateDeleteTask = [
 ];
 
 const validateUserId = [
-  param('userId').notEmpty().isMongoId().withMessage('Valid User ID is required'),
+  param('userId').notEmpty().withMessage('Valid User ID is required'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

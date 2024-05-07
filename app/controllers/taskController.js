@@ -12,11 +12,6 @@ const createTask = async (req, res) => {
     const createdAt = new Date();
     const updatedAt = new Date();
 
-    const user = await userService.getUserById(userId);
-    if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-    }
-
     // Create task object
     const taskData = {
       title,
@@ -56,11 +51,6 @@ const getTaskById = async (req, res) => {
 const getTasksByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
-
-    const user = await userService.getUserById(userId);
-    if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-    }
 
     // Retrieve all tasks
     const tasks = await taskService.getTasksByUserId(userId);

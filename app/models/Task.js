@@ -25,8 +25,7 @@ const taskSchema = new mongoose.Schema({
     default: Date.now
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true
   }
 });
