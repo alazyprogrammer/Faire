@@ -28,7 +28,7 @@ db.createCollection("tasks", {
       properties: {
         title: { bsonType: "string" },
         description: { bsonType: "string" },
-        status: { bsonType: "string", enum: ["TODO", "IN_PROGRESS", "COMPLETED"] },
+        status: { bsonType: "string", enum: ["TODO", "IN_PROGRESS", "DONE"] },
         createdAt: { bsonType: "date" },
         updatedAt: { bsonType: "date" },
         userId: { bsonType: "string" }
