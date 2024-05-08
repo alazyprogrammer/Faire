@@ -64,6 +64,24 @@ const getUserById = async (req, res) => {
     }
 };
 
+const getUserByEmail = async (req, res) => {
+    const { email } = req.body;
+    console.log("email: " + email);
+    try {
+      const userRecord = await admin.auth().getUserByEmail(email);
+      res.status(200).json(userRecord.toJSON());
+    } catch (error) {
+        if (error.errorInfo.code === 'auth/user-not-found') {
+            // Return null if the user is not found
+            return res.status(404).json(null);
+        } else {
+            // Handle other errors
+            console.error('Error fetching user by email:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+};
+
 const updateUser = async (req, res) => {
     try {
         // Extract userId, email, and new password from request body
@@ -125,6 +143,7 @@ const deleteUser = async (req, res) => {
 module.exports = {
     createUser,
     getUserById,
+    getUserByEmail,
     updateUser,
     deleteUser,
 };
